@@ -683,7 +683,7 @@ $(document).ready(function() {
       var $this = this,
       href = link.attr('href'),
       video = href.match(/(youtube|youtube-nocookie|youtu|vimeo)\.(com|be|ly|tv)\/((watch\?v=([\w-]+))|(embed\/([\w-]+))|([\w-]+))/);
-      videoOther = href.match(/(dai|brighteon|ted)\.(com|be|ly|tv|net)\/((talks\/([\w-]+))|([\w-]+))/);
+      videoOther = href.match(/(dai|brighteon|ted|alugha)\.(com|be|net|ly|tv)\/(?:talks\/|videos\/)?([\w-]+)/);
 
       if (href.match(/\.(jpeg|jpg|gif|png|tiff|svg|webp)$/i) !== null) {
         return true;
@@ -741,7 +741,7 @@ $(document).ready(function() {
       var $this = this,
       href = link.attr('href'),
       video = href.match(/(youtube|youtube-nocookie|youtu|vimeo)\.(com|be|ly|tv)\/((watch\?v=([\w-]+))|(embed\/([\w-]+))|([\w-]+))/);
-      videoOther = href.match(/(dai|brighteon|ted)\.(com|be|net|ly|tv)\/((talks\/([\w-]+))|([\w-]+))/);
+      videoOther = href.match(/(dai|brighteon|ted|alugha)\.(com|be|net|ly|tv)\/(?:talks\/|videos\/)?([\w-]+)/);
 
       // Image
       if (href.match(/\.(jpeg|jpg|gif|png|tiff|svg|webp)$/i) !== null) {
@@ -818,6 +818,11 @@ $(document).ready(function() {
           classTerm = 'topbox_brighteon';
         }
 
+        if (videoOther[1] == 'alugha') {
+          src = 'https://alugha.com/embed/web-player?autoplay=1&v=' + videoOther[3];
+          classTerm = 'topbox_alugha';
+        }
+
         if (src) {
           var iframeVideo = $('<iframe>', {
             src: src,
@@ -828,7 +833,7 @@ $(document).ready(function() {
             scrolling: 'auto',
             allowfullscreen: 'true',
             allowtransparency: 'true',
-            allow: 'autoplay; encrypted-media'
+            allow: 'autoplay; encrypted-media; fullscreen; picture-in-picture'
           });
           content.prepend(iframeVideo);
           $('iframe').wrap('<div class="topbox_embedded_web_video" />');
